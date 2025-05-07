@@ -76,7 +76,7 @@ jobs:
           run: |
             # Install necessary dependencies and build the blueprint
             apk update
-            apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
+            apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev jq
             git config --global --add safe.directory $GITHUB_WORKSPACE
             git config --global --add safe.directory `pwd`
             python3 -m venv env
@@ -98,13 +98,6 @@ jobs:
       - name: Check declarations mentioned in the blueprint exist in Lean code
         run: |
             ~/.elan/bin/lake exe checkdecls blueprint/lean_decls
-
-      - name: Update docs to include Sequencelib information
-        run: |
-            pip install beautifulsoup4 html5lib more-itertools
-            pwd
-            ls -l
-            python3 update_docs.py
 
       - name: Copy API documentation to `home_page/docs`
         run: cp -r .lake/build/doc home_page/docs
