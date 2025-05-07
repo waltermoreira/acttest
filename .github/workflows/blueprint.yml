@@ -80,7 +80,7 @@ jobs:
           echo '{"path": "GetOEISInfo.lean"}' | ~/.elan/bin/lake exe repl | jq -r '.messages[0].data'
           export PATH=.:~/.elan/bin:$PATH
           echo $PATH
-          run-meta.sh
+          run_meta.sh
           update_docs.py
 
       - name: Build blueprint and copy to `home_page/blueprint`
