@@ -78,8 +78,10 @@ jobs:
           which sh
           ls -l
           echo '{"path": "GetOEISInfo.lean"}' | ~/.elan/bin/lake exe repl | jq -r '.messages[0].data'
-          ./run-meta.sh
-          ./update_docs.py
+          export PATH=.:~/.elan/bin:$PATH
+          echo $PATH
+          run-meta.sh
+          update_docs.py
 
       - name: Build blueprint and copy to `home_page/blueprint`
         uses: xu-cheng/texlive-action@v2
