@@ -68,6 +68,15 @@ jobs:
             echo "The 'home_page' folder does not exist in the repository."
             echo "HOME_PAGE_EXISTS=false" >> $GITHUB_ENV
           fi
+      
+      - name: Update for sequencelib
+        run: |
+          apt install jq python3 python3-pip python3-venv
+          python3 -m venv --system-site-packages venv
+          source venv/bin/activate
+          pip install beautifulsoup4 html5lib more-itertools
+          ./run-meta.sh
+          ./update_docs.py
 
       - name: Build blueprint and copy to `home_page/blueprint`
         uses: xu-cheng/texlive-action@v2
@@ -83,16 +92,7 @@ jobs:
             source env/bin/activate
             pip install --upgrade pip requests wheel
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
-            pip install leanblueprint beautifulsoup4 html5lib more-itertools
-            pwd
-            ls -l
-            echo "$PATH"
-            which jq
-            which sh
-            ls -l ~/.elan/bin
-            echo '{"path": "GetOEISInfo.lean"}' | ~/.elan/bin/lake exe repl | jq -r '.messages[0].data'
-            ./run_meta.sh
-            python3 update_docs.py
+            pip install leanblueprint
             leanblueprint pdf
             mkdir -p home_page
             cp blueprint/print/print.pdf home_page/blueprint.pdf
