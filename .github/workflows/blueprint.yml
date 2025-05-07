@@ -86,9 +86,11 @@ jobs:
             pip install leanblueprint beautifulsoup4 html5lib more-itertools
             pwd
             ls -l
-            which jq
             echo "$PATH"
+            which jq
+            which sh
             ls -l ~/.elan/bin
+            echo '{"path": "GetOEISInfo.lean"}' | ~/.elan/bin/lake exe repl | jq -r '.messages[0].data'
             ./run_meta.sh
             python3 update_docs.py
             leanblueprint pdf
