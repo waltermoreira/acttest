@@ -87,7 +87,8 @@ jobs:
             pwd
             ls -l
             which jq
-            export PATH=~/.elan/bin:$PATH
+            echo "$PATH"
+            ls -l ~/.elan/bin
             ./run_meta.sh
             python3 update_docs.py
             leanblueprint pdf
